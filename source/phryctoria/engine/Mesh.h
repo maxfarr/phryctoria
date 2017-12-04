@@ -27,9 +27,18 @@ class Mesh
 public:
 	const GLfloat* Data;
 	std::vector<VertAttrib> Attributes;
-	Mesh();
-	~Mesh();
+	GLenum RenderMode;
+	GLsizeiptr DataSize;
+	GLint VertexCount;
+
+	Mesh(GLenum renderMode, GLsizeiptr dataSize, GLint vertexCount);
+	//~Mesh();
+
+	void Bind();
+	void Render();
 
 private:
+	GLuint VBO;
+	GLuint VAO;
 
 };

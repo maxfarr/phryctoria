@@ -11,6 +11,8 @@ using namespace glm;
 
 #include "shaders\LoadShader.cpp"
 
+#include "engine\Mesh.h"
+
 GLFWwindow* window;
 
 int main()
@@ -51,11 +53,7 @@ int main()
 	
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
-
-	GLuint programID = LoadShader("simple.vert", "simple.frag");
+	GLuint programID = LoadShader("shaders/source/simple.vert", "shaders/source/simple.frag");
 
 	static const GLfloat vertexData[] = {
 		-1.0f, -1.0f, 0.0f,    1.0, 0.0, 0.0,
@@ -63,16 +61,13 @@ int main()
 		0.0f, 1.0f, 0.0f,    0.0, 0.0, 1.0
 	};
 
-	GLuint vertexBuffer;
-	glGenBuffers(1, &vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+	Mesh triangle(GL_TRIANGLES, sizeof(vertexData), 3);
+	triangle.VertexCount = 3;
+	triangle.Attributes.push_back(VertAttrib(3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0));
+	triangle.Attributes.push_back(VertAttrib(3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))));
+	triangle.Data = &vertexData[0];
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
+	triangle.Bind();
 
 	glUseProgram(programID);
 
@@ -80,10 +75,8 @@ int main()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glBindVertexArray(VertexArrayID);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		triangle.Render();
 
-		//swap buffers, poll for new events
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
