@@ -9,6 +9,8 @@
 #include <glm\glm.hpp>
 using namespace glm;
 
+#include "..\..\stb\stb_image.h"
+
 #include "shaders\LoadShader.cpp"
 
 #include "engine\Mesh.h"
@@ -55,17 +57,22 @@ int main()
 
 	GLuint programID = LoadShader("shaders/source/simple.vert", "shaders/source/simple.frag");
 
-	static const GLfloat vertexData[] = {
-		-1.0f, -1.0f, 0.0f,    1.0, 0.0, 0.0,
-		1.0f, -1.0f, 0.0f,    0.0, 1.0, 0.0,
-		0.0f, 1.0f, 0.0f,    0.0, 0.0, 1.0
+	static GLfloat vertexData[] = {
+		0.5f,  0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		-0.5f,  0.5f, 0.0f
 	};
 
-	Mesh triangle(GL_TRIANGLES, sizeof(vertexData), 3);
-	triangle.VertexCount = 3;
-	triangle.Attributes.push_back(VertAttrib(3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0));
-	triangle.Attributes.push_back(VertAttrib(3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))));
-	triangle.Data = &vertexData[0];
+	static GLuint indices[] = {
+		0, 1, 3,
+		1, 2, 3
+	};
+
+	Mesh triangle(GL_TRIANGLES, sizeof(indices));
+	triangle.Attributes.push_back(VertAttrib(3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0));
+	/*triangle.Attributes.push_back(VertAttrib(3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))));*/
+	triangle.LoadPointer(&vertexData[0], sizeof(vertexData), &indices[0], sizeof(indices));
 
 	triangle.Bind();
 

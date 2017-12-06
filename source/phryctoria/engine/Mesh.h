@@ -25,20 +25,20 @@ public:
 class Mesh
 {
 public:
-	const GLfloat* Data;
+	std::vector<GLfloat> Data;
+	std::vector<GLuint> Indices;
 	std::vector<VertAttrib> Attributes;
 	GLenum RenderMode;
-	GLsizeiptr DataSize;
 	GLint VertexCount;
 
-	Mesh(GLenum renderMode, GLsizeiptr dataSize, GLint vertexCount);
+	Mesh(GLenum renderMode, GLint vertexCount);
 	//~Mesh();
 
+	void LoadPointer(GLfloat* data, GLuint dataSize, GLuint* indices, GLuint indicesSize);
 	void Bind();
 	void Render();
 
 private:
-	GLuint VBO;
-	GLuint VAO;
+	GLuint VBO, VAO, EBO;
 
 };

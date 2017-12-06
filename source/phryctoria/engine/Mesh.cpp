@@ -9,11 +9,23 @@ VertAttrib::VertAttrib(GLint size, GLenum type, GLboolean normalized, GLsizei st
 	Offset = offset;
 }
 
-Mesh::Mesh(GLenum renderMode, GLsizeiptr dataSize, GLint vertexCount)
+Mesh::Mesh(GLenum renderMode, GLint vertexCount)
 {
 	RenderMode = renderMode;
-	DataSize = dataSize;
 	VertexCount = vertexCount;
+}
+
+void Mesh::LoadPointer(GLfloat* data, GLuint dataSize, GLuint* indices, GLuint indicesSize)
+{
+	for (uint i = 0; i < dataSize; i++)
+	{
+		Data.push_back(data[i]);
+	}
+
+	for (uint i = 0; i < indicesSize; i++)
+	{
+		Indices.push_back(indices[i]);
+	}
 }
 
 void Mesh::Bind()
@@ -23,7 +35,11 @@ void Mesh::Bind()
 
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, DataSize, Data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, Data.size(), &Data[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), &Indices[0], GL_STATIC_DRAW);
 
 	for (int i = 0; i < Attributes.size(); i++)
 	{
@@ -36,4 +52,5 @@ void Mesh::Render()
 {
 	glBindVertexArray(VAO);
 	glDrawArrays(RenderMode, 0, VertexCount);
+	glDrawElements(GL_TRIANGLES, VertexCount, GL_UNSIGNED_INT, 0);
 }
