@@ -10,6 +10,12 @@ using namespace glm;
 
 #include <vector>
 
+enum VertexMode
+{
+	RAW,
+	INDEXED
+};
+
 struct VertAttrib
 {
 public:
@@ -29,9 +35,10 @@ public:
 	std::vector<GLuint> Indices;
 	std::vector<VertAttrib> Attributes;
 	GLenum RenderMode;
+	VertexMode VertMode;
 	GLint VertexCount;
 
-	Mesh(GLenum renderMode, GLint vertexCount);
+	Mesh(GLenum renderMode, VertexMode vertMode, GLint vertexCount);
 	//~Mesh();
 
 	void LoadPointer(GLfloat* data, GLuint dataSize, GLuint* indices, GLuint indicesSize);

@@ -9,9 +9,10 @@ VertAttrib::VertAttrib(GLint size, GLenum type, GLboolean normalized, GLsizei st
 	Offset = offset;
 }
 
-Mesh::Mesh(GLenum renderMode, GLint vertexCount)
+Mesh::Mesh(GLenum renderMode, VertexMode vertMode, GLint vertexCount)
 {
 	RenderMode = renderMode;
+	VertMode = vertMode;
 	VertexCount = vertexCount;
 }
 
@@ -37,9 +38,12 @@ void Mesh::Bind()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, Data.size(), &Data[0], GL_STATIC_DRAW);
 
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), &Indices[0], GL_STATIC_DRAW);
+	if (VertMode == INDEXED)
+	{
+		glGenBuffers(1, &EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), &Indices[0], GL_STATIC_DRAW);
+	}
 
 	for (int i = 0; i < Attributes.size(); i++)
 	{
@@ -51,6 +55,12 @@ void Mesh::Bind()
 void Mesh::Render()
 {
 	glBindVertexArray(VAO);
-	glDrawArrays(RenderMode, 0, VertexCount);
-	glDrawElements(GL_TRIANGLES, VertexCount, GL_UNSIGNED_INT, 0);
+	switch (VertMode)
+	{
+	case INDEXED:
+		glDrawElements(RenderMode, VertexCount, GL_UNSIGNED_INT, 0);
+		
+	case RAW:
+		glDrawArrays(RenderMode, 0, VertexCount);
+	}
 }
