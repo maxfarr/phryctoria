@@ -139,19 +139,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="engine\Camera.cpp" />
+    <ClCompile Include="engine\camera\Camera.cpp" />
+    <ClCompile Include="engine\camera\FPCamera.cpp" />
+    <ClCompile Include="engine\component\ActiveComponent.cpp" />
+    <ClCompile Include="engine\component\Component.cpp" />
     <ClCompile Include="engine\Mesh.cpp" />
     <ClCompile Include="engine\Renderer.cpp" />
     <ClCompile Include="sandbox.cpp" />
     <ClCompile Include="shaders\LoadShader.cpp" />
+    <ClCompile Include="shaders\Shader.cpp" />
+    <ClCompile Include="shaders\ShaderProgram.cpp" />
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\stb\stb.h" />
     <ClInclude Include="..\..\stb\stb_image.h" />
-    <ClInclude Include="engine\Camera.h" />
+    <ClInclude Include="engine\camera\Camera.h" />
+    <ClInclude Include="engine\camera\FPCamera.h" />
+    <ClInclude Include="engine\component\ActiveComponent.h" />
+    <ClInclude Include="engine\component\Component.h" />
     <ClInclude Include="engine\Mesh.h" />
     <ClInclude Include="engine\Renderer.h" />
+    <ClInclude Include="shaders\Shader.h" />
+    <ClInclude Include="shaders\ShaderProgram.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,42 +13,84 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\shaders">
+      <UniqueIdentifier>{423579fc-95ae-408d-8943-39cb08eb6752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine">
+      <UniqueIdentifier>{c9434e5a-f772-4cec-894c-95fd87a70aa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\camera">
+      <UniqueIdentifier>{b97a89e6-ccb0-453c-bd6f-ac55d4b61075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\component">
+      <UniqueIdentifier>{02b35141-216f-4b6f-bbea-fc2db8144076}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sandbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shaders\LoadShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\Mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="engine\camera\Camera.cpp">
+      <Filter>Source Files\engine\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\camera\FPCamera.cpp">
+      <Filter>Source Files\engine\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="shaders\LoadShader.cpp">
+      <Filter>Source Files\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Mesh.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Renderer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\component\ActiveComponent.cpp">
+      <Filter>Source Files\engine\component</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\component\Component.cpp">
+      <Filter>Source Files\engine\component</Filter>
+    </ClCompile>
+    <ClCompile Include="shaders\Shader.cpp">
+      <Filter>Source Files\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="shaders\ShaderProgram.cpp">
+      <Filter>Source Files\shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="engine\Mesh.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\Camera.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\Renderer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\stb\stb.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\stb\stb_image.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\camera\Camera.h">
+      <Filter>Source Files\engine\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\camera\FPCamera.h">
+      <Filter>Source Files\engine\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Mesh.h">
+      <Filter>Source Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Renderer.h">
+      <Filter>Source Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\component\ActiveComponent.h">
+      <Filter>Source Files\engine\component</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\component\Component.h">
+      <Filter>Source Files\engine\component</Filter>
+    </ClInclude>
+    <ClInclude Include="shaders\Shader.h">
+      <Filter>Source Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="shaders\ShaderProgram.h">
+      <Filter>Source Files\shaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

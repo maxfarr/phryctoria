@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "engine\camera\Camera.h"
+#include "engine\component\Component.h"
+#include "engine\component\ActiveComponent.h"
+
 //first GLEW
 #include <GL\glew.h>
 //then GLFW
@@ -17,10 +21,26 @@ using namespace glm;
 
 #include "engine\Mesh.h"
 
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 768
+#define SCREEN_WIDTH 2048
+#define SCREEN_HEIGHT 1536
+
+#define MOUSE_SENSITIVITY 0.005
 
 GLFWwindow* window;
+
+Camera mainCam;
+
+float lastX = SCREEN_WIDTH / 2.0f;
+float lastY = SCREEN_HEIGHT / 2.0f;
+float camRotation = 0.0f;
+bool firstMouse = true;
+
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+
+void handleInput(GLFWwindow* window);
+
+void mouseCallback(GLFWwindow* window, double xpos, double ypos);
 
 int main()
 {
@@ -47,6 +67,9 @@ int main()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
+	glfwSetCursorPosCallback(window, mouseCallback);
+
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	//GLEW init
 	glewExperimental = true;
@@ -178,7 +201,7 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	int width, height, channelCount;
-	unsigned char *data = stbi_load("../../resources/crate2.png", &width, &height, &channelCount, 0);
+	unsigned char *data = stbi_load("../../resources/crate2.png", &width, &height, &channelCount, 0);						
 
 	if (data)
 	{
@@ -192,36 +215,85 @@ int main()
 
 	stbi_image_free(data);
 
+	mainCam = Camera(PERSPECTIVE, vec3(0.0f, 0.75f, -3.0f));
+	mainCam.Zoom = 45.0f;
+
 	glUseProgram(programID);
 
 	do
 	{
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
+		handleInput(window);
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//to-do: model matrix should be part of component class
 		mat4 model = mat4(1.0f);
-		model = rotate(model, (float)glfwGetTime() * radians(50.0f), vec3(0.5f, 1.0f, 0.0f));
-
-		//to-do: make view and projection matrices part of camera class
-		mat4 view = mat4(1.0f);
-		view = translate(view, vec3(0.0f, 0.0f, -3.0f));
-
-		mat4 projection = mat4(1.0f);
-		projection = perspective(radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
+		model = rotate(model, (float)glfwGetTime() * radians(50.0f), vec3(0.0f, 1.0f, 0.0f));
 		
 		unsigned int modelLocation = glGetUniformLocation(programID, "model");
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(model));
 
 		unsigned int viewLocation = glGetUniformLocation(programID, "view");
-		glUniformMatrix4fv(viewLocation, 1, GL_FALSE, value_ptr(view));
+		glUniformMatrix4fv(viewLocation, 1, GL_FALSE, value_ptr(mainCam.GetView()));
 
 		unsigned int projectionLocation = glGetUniformLocation(programID, "projection");
-		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(projection));
+		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(mainCam.GetProjection(SCREEN_WIDTH, SCREEN_HEIGHT)));
 
 		glBindTexture(GL_TEXTURE_2D, tex);
 		triangle.Render();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && !glfwWindowShouldClose(window));
+	} while (!glfwWindowShouldClose(window));
+}
+
+void handleInput(GLFWwindow* window)
+{
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
+
+	mat4 rotation = mat4(1.0f);
+
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		vec4 translation = vec4(0.0f, 0.0f, 1.0f, 1.0f) * rotate(rotation, camRotation, vec3(0.0f, 1.0f, 0.0f));
+		mainCam.TranslateWorld(vec3(translation.x, translation.y, translation.z) * deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		mainCam.Translate(vec3(1.0f, 0.0f, 0.0f) * deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		vec4 translation = vec4(0.0f, 0.0f, -1.0f, 1.0f) * rotate(rotation, camRotation, vec3(0.0f, 1.0f, 0.0f));
+		mainCam.TranslateWorld(vec3(translation.x, translation.y, translation.z) * deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		mainCam.Translate(vec3(-1.0f, 0.0f, 0.0f) * deltaTime);
+	}
+}
+
+void mouseCallback(GLFWwindow* window, double xpos, double ypos)
+{
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos;
+
+	lastX = xpos;
+	lastY = ypos;
+
+	camRotation += xoffset * MOUSE_SENSITIVITY;
+
+	mainCam.Rotate(xoffset * MOUSE_SENSITIVITY, vec3(0.0f, 1.0f, 0.0f));
+	mainCam.Rotate(-yoffset * MOUSE_SENSITIVITY, mainCam.GetRight());
 }

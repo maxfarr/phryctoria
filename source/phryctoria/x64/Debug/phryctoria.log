@@ -1,2 +1,12 @@
 ﻿  sandbox.cpp
+c:\phryctoria\source\phryctoria\sandbox.cpp(225): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\phryctoria\source\phryctoria\sandbox.cpp(284): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\phryctoria\source\phryctoria\sandbox.cpp(285): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\phryctoria\source\phryctoria\sandbox.cpp(289): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\phryctoria\source\phryctoria\sandbox.cpp(290): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\phryctoria\source\phryctoria\sandbox.cpp(292): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\phryctoria\source\phryctoria\sandbox.cpp(293): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\phryctoria\source\phryctoria\sandbox.cpp(295): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\phryctoria\source\phryctoria\sandbox.cpp(297): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\phryctoria\source\phryctoria\sandbox.cpp(298): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   phryctoria.vcxproj -> C:\phryctoria\source\x64\Debug\phryctoria.exe
