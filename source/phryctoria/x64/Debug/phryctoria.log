@@ -10,3 +10,4 @@ c:\phryctoria\source\phryctoria\sandbox.cpp(295): warning C4244: '+=': conversio
 c:\phryctoria\source\phryctoria\sandbox.cpp(297): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\phryctoria\source\phryctoria\sandbox.cpp(298): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   phryctoria.vcxproj -> C:\phryctoria\source\x64\Debug\phryctoria.exe
+  phryctoria.vcxproj -> C:\phryctoria\source\x64\Debug\phryctoria.pdb (Partial PDB)

@@ -25,6 +25,9 @@
     <Filter Include="Source Files\engine\component">
       <UniqueIdentifier>{02b35141-216f-4b6f-bbea-fc2db8144076}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\engine\light">
+      <UniqueIdentifier>{e2877828-54de-4883-8f52-144ffa26155d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sandbox.cpp">
@@ -60,6 +63,12 @@
     <ClCompile Include="shaders\ShaderProgram.cpp">
       <Filter>Source Files\shaders</Filter>
     </ClCompile>
+    <ClCompile Include="engine\light\Light.cpp">
+      <Filter>Source Files\engine\light</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\light\SpotLight.cpp">
+      <Filter>Source Files\engine\light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\stb\stb.h">
@@ -91,6 +100,12 @@
     </ClInclude>
     <ClInclude Include="shaders\ShaderProgram.h">
       <Filter>Source Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\light\Light.h">
+      <Filter>Source Files\engine\light</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\light\SpotLight.h">
+      <Filter>Source Files\engine\light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

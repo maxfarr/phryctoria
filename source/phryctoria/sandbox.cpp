@@ -21,8 +21,8 @@ using namespace glm;
 
 #include "engine\Mesh.h"
 
-#define SCREEN_WIDTH 2048
-#define SCREEN_HEIGHT 1536
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
 
 #define MOUSE_SENSITIVITY 0.005
 

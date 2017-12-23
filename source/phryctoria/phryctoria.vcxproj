@@ -143,6 +143,8 @@
     <ClCompile Include="engine\camera\FPCamera.cpp" />
     <ClCompile Include="engine\component\ActiveComponent.cpp" />
     <ClCompile Include="engine\component\Component.cpp" />
+    <ClCompile Include="engine\light\SpotLight.cpp" />
+    <ClCompile Include="engine\light\Light.cpp" />
     <ClCompile Include="engine\Mesh.cpp" />
     <ClCompile Include="engine\Renderer.cpp" />
     <ClCompile Include="sandbox.cpp" />
@@ -158,6 +160,8 @@
     <ClInclude Include="engine\camera\FPCamera.h" />
     <ClInclude Include="engine\component\ActiveComponent.h" />
     <ClInclude Include="engine\component\Component.h" />
+    <ClInclude Include="engine\light\SpotLight.h" />
+    <ClInclude Include="engine\light\Light.h" />
     <ClInclude Include="engine\Mesh.h" />
     <ClInclude Include="engine\Renderer.h" />
     <ClInclude Include="shaders\Shader.h" />
